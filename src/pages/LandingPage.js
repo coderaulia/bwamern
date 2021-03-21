@@ -1,5 +1,11 @@
 import React from "react";
 
+import Header from "parts/Header";
+
 export default function LandingPage() {
-	return <div></div>;
+	return (
+		<>
+			<Header> {...this.props}</Header>
+		</>
+	);
 }
