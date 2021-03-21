@@ -6,16 +6,15 @@ export default function Header(props) {
 	const getNavLinkClass = (path) => {
 		return props.location.pathname === path ? " active" : "";
 	};
-
 	return (
-		<Header className="spacing-sm">
+		<header className="spacing-sm">
 			<div className="container">
 				<nav className="navbar navbar-expand-lg navbar-light">
 					<BrandIcon />
 					<div className="collapse navbar-collapse">
 						<ul className="navbar-nav ml-auto">
 							<li className={`nav-item${getNavLinkClass("/")}`}>
-								<Button className="nav-link" type="link" href="">
+								<Button className="nav-link" type="link" href="/">
 									Home
 								</Button>
 							</li>
@@ -38,6 +37,6 @@ export default function Header(props) {
 					</div>
 				</nav>
 			</div>
-		</Header>
+		</header>
 	);
 }
