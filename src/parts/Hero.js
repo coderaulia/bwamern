@@ -12,6 +12,7 @@ import Button from "elements/Button";
 
 export default function Hero(props) {
 	function showMostPicked() {
+		// adding scrolling to most picked section with window.scrollTO
 		window.scrollTo({
 			top: props.refMostPicked.current.offsetTop - 30,
 			behavior: "smooth",
@@ -33,6 +34,7 @@ export default function Hero(props) {
 						We provide what you need to enjoy your holiday with family. Time to
 						make another memorable moments.
 					</p>
+					{/* using button with shadow and onClick to most picked section */}
 					<Button
 						className="btn px-5"
 						hasShadow
@@ -41,7 +43,7 @@ export default function Hero(props) {
 					>
 						Show Me Now
 					</Button>
-
+					{/* using data from json file */}
 					<div className="row" style={{ marginTop: 80 }}>
 						<div className="col-auto" style={{ marginRight: 30 }}>
 							<img

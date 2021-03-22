@@ -3,15 +3,18 @@ import Button from "elements/Button";
 
 export default function MostPicked(props) {
 	return (
+		// using ref to refering the scrolling effect from hero section
 		<section className="container" ref={props.refMostPicked}>
 			<h4 className="mb-3">Most Picked</h4>
 			<div className="container-grid">
+				{/* looping the json data to the most picked section */}
 				{props.data.map((item, index) => {
 					return (
 						<div
 							key={`mostpicked-${index}`}
 							className={`item column-4${index === 0 ? " row-2" : " row-1"}`}
 						>
+							{/* using new class "card" to styling the most picked img */}
 							<div className="card card-featured">
 								<div className="tag">
 									${item.price}
