@@ -18,6 +18,16 @@ export default function Star(value, height, width, spacing) {
 		);
 	}
 
+	if (decimals > 0 && value <= 5) {
+		star.push(
+			<div
+				className="star"
+				key={`star-${index}`}
+				style={{ left: leftPos, width: width - spacing }}
+			></div>
+		);
+	}
+
 	return <></>;
 }
 
