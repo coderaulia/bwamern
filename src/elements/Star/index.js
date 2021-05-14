@@ -2,7 +2,7 @@ import React from "react";
 
 import propTypes from "prop-types";
 
-export default function Star(value, height, width, spacing) {
+export default function Star({ value, height, width, spacing }) {
 	const decimals = Number(value) % 1;
 
 	const star = [];
@@ -28,7 +28,28 @@ export default function Star(value, height, width, spacing) {
 		);
 	}
 
-	return <></>;
+	const starPlaceholder = [];
+	for (let index = 0; index < 5; index++) {
+		leftPos = leftPos + width;
+		starPlaceholder.push(
+			<div
+				className="star placeholder"
+				key={`starPlaceholder-${index}`}
+				style={{ left: index * width, width: width, marginRight: spacing }}
+			></div>
+		);
+	}
+
+	return (
+		<>
+			<div
+				className={["starts", className].join(" ")}
+				style={{ height: height }}
+			>
+				{starPlaceholder} {star}
+			</div>
+		</>
+	);
 }
 
 Star.propTypes = {
