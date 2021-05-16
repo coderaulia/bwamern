@@ -6,9 +6,8 @@ import { DateRange } from "react-date-range";
 import "./index.scss";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-
 import formatDate from "utils/formatDate";
-import iconCalendar from "assets/images/ic_calendar.svg";
+import iconCalendar from "assets/images/icons/icon-calendar.svg";
 
 export default function Date(props) {
 	const { value, placeholder, name } = props;
@@ -73,6 +72,19 @@ export default function Date(props) {
 					placeholder={placeholder}
 					onClick={() => setIsShowed(!isShowed)}
 				/>
+
+				{/* jika diklik maka wrapper akan muncul */}
+				{isShowed && (
+					<div className="date-range-wrapper">
+						<DateRange
+							editableDateInputs={true}
+							onChange={datePickerChange}
+							moveRangeOnFirstSelection={false}
+							onRangeFocusChange={check}
+							ranges={[value]}
+						/>
+					</div>
+				)}
 			</div>
 		</div>
 	);
