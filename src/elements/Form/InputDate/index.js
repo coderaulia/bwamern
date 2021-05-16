@@ -1,100 +1,85 @@
-import React, { useState } from "react";
-
+import React, { useState, useRef, useEffect } from "react";
 import propTypes from "prop-types";
 
+import { DateRange } from "react-date-range";
+
 import "./index.scss";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 
-export default function Number(props) {
-	//destructuring props
-	const { value, placeholder, name, min, max, prefix, suffix } = props;
+import formatDate from "utils/formatDate";
+import iconCalendar from "assets/images/ic_calendar.svg";
 
-	// setting function untuk menambahkan prefix dan suffix otomatis
-	const [InputValue, setInputValue] = useState(`${prefix}${value}${suffix}`);
+export default function Date(props) {
+	const { value, placeholder, name } = props;
+	//toggle wrapper datepicker
+	const [isShowed, setIsShowed] = useState(false);
 
-	//fungsi onchange data
-	const onChange = (e) => {
-		//cek jika valuenya string
-		let value = String(e.target.value);
-		if (prefix) value = value.replace(prefix);
-		if (suffix) value = value.replace(suffix);
+	const datePickerChange = (value) => {
+		const target = {
+			target: {
+				value: value.selection,
+				name: name,
+			},
+		};
+		props.onChange(target);
+	};
 
-		//cek pake regex
-		const patternNumeric = new RegExp("[0-9]*");
-		const isNumeric = patternNumeric.test(value);
+	//jika diklik akan menutup kalender
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutside);
 
-		//cek jika bener2 numeric, dan valuenya tidak lebih kecil/lebih besar dari max & min
-		if (isNumeric && +value <= max && +value >= min) {
-			props.onChange({
-				target: {
-					name: name,
-					value: +value,
-				},
-			});
-			setInputValue(`${prefix}${value}${suffix}`);
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	});
+
+	// penggunaan useref
+	const refDate = useRef(null);
+	// fungsi cek date udah keisi atau belum
+	const handleClickOutside = (event) => {
+		if (refDate && !refDate.current.contains(event.target)) {
+			setIsShowed(false);
 		}
 	};
 
-	// fungsi mengurangi hari
-	const minus = () => {
-		value > min &&
-			onChange({
-				target: {
-					name: name,
-					value: +value - 1,
-				},
-			});
+	// mengecek nilai kembali array => showed=false
+	const check = (focus) => {
+		focus.indexOf(1) < 0 && setIsShowed(false);
 	};
 
-	//fungsi menambahkan hari
-	const plus = () => {
-		value < max &&
-			onChange({
-				target: {
-					name: name,
-					value: +value + 1,
-				},
-			});
-	};
+	// mengecek start & end date dan melakukan formatting (formatDate)
+	const displayDate = `${value.startDate ? formatDate(value.startDate) : ""}${
+		value.endDate ? " - " + formatDate(value.endDate) : ""
+	}`;
 
 	return (
-		<div className={["input-number mb-3", props.outerClassName].join(" ")}>
+		<div
+			//ref not null
+			ref={refDate}
+			className={["input-date mb-3", props.outerClassName].join(" ")}
+		>
 			<div className="input-group">
-				<div className="input-group-prepend ">
-					<span className="input-group-text minus" onClick={minus}>
-						-
+				<div className="input-group-prepend bg-gray-900">
+					<span className="input-group-text">
+						<img src={iconCalendar} alt="icon" />
 					</span>
 				</div>
 				<input
-					min={min}
-					max={max}
-					name={name}
-					pattern="[0-9]*"
+					type="text"
+					readOnly
 					className="form-control"
-					placeholder={placeholder ? placeholder : "0"}
-					value={String(InputValue)}
-					onChange={onChange}
+					value={displayDate}
+					placeholder={placeholder}
+					onClick={() => setIsShowed(!isShowed)}
 				/>
-				<div className="input-group-append">
-					<span className="input-group-text plus" onClick={plus}>
-						+
-					</span>
-				</div>
 			</div>
 		</div>
 	);
 }
 
-// default value jika tidak didefinisikan saat penggunaan
-Number.defaultProps = {
-	min: 1,
-	max: 1,
-	prefix: "",
-	suffix: "",
-};
-
-//setting proptypes
-Number.propTypes = {
-	value: propTypes.oneOfType([propTypes.string, propTypes.number]),
+Date.propTypes = {
+	value: propTypes.object,
 	onChange: propTypes.func,
 	placeholder: propTypes.string,
 	outerClassName: propTypes.string,
