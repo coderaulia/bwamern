@@ -5,7 +5,9 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 
- @import "colorVariables";
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,700&display=swap');
+
+@import "colorVariables";
 @import "functions";
 @import "variables";
 @import "mixins";
@@ -206,4 +208,36 @@ section {
 .testimonial-hero, .testimonial-hero img {
 	width: 360px;
 	height: 500px;
+}
+
+footer {
+	border-top: 1px solid $gray-200;
+	padding-top: 50px;
+
+	.brand-tagline {
+		color: $gray-600;
+		font-weight: 300;
+		margin-top: 10px;
+	}
+
+	.list-group-item {
+		padding: 0.3125rem 0;
+		border: 0;
+		a, span {
+			color: $gray-500;
+			font-weight: 300;
+		}
+		a {
+			@include hover-focus {
+				color: $gray-800;
+			}
+		}
+	}
+
+	.copyrights {
+		margin-top: 50px;
+		padding-bottom: 50px;
+		font-weight: 300;
+		color: $gray-500;
+	}
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-import Button from "elemtns/Button";
+import Button from "elements/Button";
 import IconText from "./IconText";
 
 export default function Footer() {
@@ -8,13 +8,13 @@ export default function Footer() {
 		<footer>
 			<div className="container">
 				<div className="row">
-					<div className="col">
+					<div className="col-auto" style={{ width: 350 }}>
 						<IconText />
 						<p className="brand-tagline">
 							We kaboom your beauty holiday instantly and memorable.
 						</p>
 					</div>
-					<div className="col-2 mr-5">
+					<div className="col-auto mr-5">
 						<h6 className="mt2">For Beginners</h6>
 						<ul className="list-group list-group-flush">
 							<li className="list-group-item">
@@ -34,7 +34,7 @@ export default function Footer() {
 							</li>
 						</ul>
 					</div>
-					<div className="col-2 mr-5">
+					<div className="col-auto mr-5">
 						<h6 className="mt2">Explore Us</h6>
 						<ul className="list-group list-group-flush">
 							<li className="list-group-item">
@@ -54,7 +54,7 @@ export default function Footer() {
 							</li>
 						</ul>
 					</div>
-					<div className="col-4">
+					<div className="col-auto">
 						<h6 className="mt2">Connect Us</h6>
 						<ul className="list-group list-group-flush">
 							<li className="list-group-item">
@@ -75,6 +75,11 @@ export default function Footer() {
 								<span>Staycation, Ciluar, Kota Bogor</span>
 							</li>
 						</ul>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col text-center copyrights">
+						Copyright 2020 All Right Reserved Staycation
 					</div>
 				</div>
 			</div>
