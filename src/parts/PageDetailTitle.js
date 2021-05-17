@@ -1,0 +1,28 @@
+import React from "react";
+import Fade from "react-reveal";
+
+import Breadcrumb from "elements/Breadcrumb";
+
+export default function PageDetailTitle({ data, breadcrumb }) {
+	return (
+		<section className="container spacing-sm">
+			<Fade bottom>
+				<div className="row align-items-center">
+					{/* breadcrumb */}
+					<div className="col">
+						<Breadcrumb data={breadcrumb} />
+					</div>
+					{/* page title */}
+					<div className="col-auto text-center">
+						<h1 className="h2">{data.name}</h1>
+						{/* sub title */}
+						<span className="text-gray-400">
+							{data.city}, {data.country}
+						</span>
+					</div>
+					<div className="col"></div>
+				</div>
+			</Fade>
+		</section>
+	);
+}

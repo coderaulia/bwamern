@@ -14,6 +14,13 @@ export default class LandingPage extends Component {
 		super(props);
 		this.refMostPicked = React.createRef();
 	}
+
+	// jika baru diload maka titlenya home dan load di atas
+	componentDidMount() {
+		window.title = "Staycation | Home";
+		window.scrollTo(0, 0);
+	}
+
 	render() {
 		return (
 			<>
