@@ -18,10 +18,111 @@ import Completed from "parts/Checkout/Completed";
 import ItemDetails from "json/itemDetails.json";
 
 export default class Checkout extends Component {
+	state = {
+		data: {
+			firstName: "",
+			lastName: "",
+			email: "",
+			phone: "",
+			proofPayment: "",
+			bankName: "",
+			bankHolder: "",
+		},
+	};
+
+	// fungsi perubahan data form
+	onChange = (event) => {
+		this.setState({
+			data: {
+				...this.state.data,
+				[event.target.name]: event.target.value,
+			},
+		});
+	};
+
+	componentDidMount() {
+		window.scroll(0, 0);
+	}
+
 	render() {
+		// data destructuring
+		const { data } = this.state;
+
+		const checkout = {
+			duration: 3,
+		};
+
+		const steps = {
+			bookingInformation: {
+				title: "Booking Information",
+				description: "Please fill up the blank fields below",
+				content: (
+					<BookingInformation
+						data={data}
+						checkout={checkout}
+						ItemDetails={ItemDetails}
+						onChange={this.onChange}
+					/>
+				),
+			},
+			payment: {
+				title: "Payment",
+				description: "Kindly follow the instructions below",
+				content: (
+					<Payment
+						data={data}
+						ItemDetails={ItemDetails}
+						checkout={checkout}
+						onChange={this.onChange}
+					/>
+				),
+			},
+			completed: {
+				title: "yay! Completed",
+				description: null,
+				content: <Completed />,
+			},
+		};
 		return (
 			<>
 				<Header isCentered />
+				<Stepper steps={steps}>
+					{(prevStep, nextStep, CurrentStep, steps) => {
+						<>
+							<Numbering
+								data={steps}
+								current={CurrentStep}
+								style={{ marginBottom: 50 }}
+							/>
+
+							<Meta data={steps} current={CurrentStep} />
+
+							<MainContent data={steps} current={CurrentStep} />
+
+							{CurrentStep === "bookingInformation" && (
+								<Fade>
+									<Controller>
+										{data.firstName !== "" &&
+											data.lastName !== "" &&
+											data.email !== "" &&
+											data.phone !== "" && (
+												<Fade>
+													<Button
+														className="btn mb-3"
+														type="button"
+														isBlock
+														isPrimary
+														hasShadow
+														onClick={nextStep}
+													></Button>
+												</Fade>
+											)}
+									</Controller>
+								</Fade>
+							)}
+						</>;
+					}}
+				</Stepper>
 			</>
 		);
 	}
